@@ -6,14 +6,13 @@ public class EmailBoxPOA extends Email_Box_ServerPOA {
 
 	@Override
 	public void salvarEmail() {
-		// TODO Auto-generated method stub
+		System.out.println("salvando e-mail");
 		
 	}
 
 	@Override
 	public String consultarEmail() {
-		// TODO Auto-generated method stub
-		return null;
+		return "e-mail consultado";
 	}
 
 }

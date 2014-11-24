@@ -1,0 +1,12 @@
+module EmailBoxServer{
+
+
+	interface Email_Box_Server {
+
+		void salvarEmail();
+
+		string consultarEmail();
+	};
+
+
+};

@@ -42,8 +42,7 @@ public class Main {
 		
 		port.enviarEmail(to, message);		
 		
-		scanner.close();
-			
+		scanner.close();		
 	}
 
 }

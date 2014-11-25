@@ -3,9 +3,9 @@ module EmailBoxServer{
 
 	interface Email_Box_Server {
 
-		void salvarEmail();
+		void salvarEmail(in long userId, in string toEmail, in string messageEmail);
 
-		string consultarEmail();
+		string consultarEmail(in long userId, in string date);
 	};
 
 

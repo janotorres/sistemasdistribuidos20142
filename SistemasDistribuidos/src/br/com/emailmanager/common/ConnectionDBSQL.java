@@ -2,8 +2,13 @@ package br.com.emailmanager.common;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Date;
+
+import br.com.emailmanager.webservice.User;
 
 public class ConnectionDBSQL {
 
@@ -38,5 +43,48 @@ public class ConnectionDBSQL {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public Boolean AnyUser(User usuario) {
+		String query = "select Count(*) from EmailUser where userName='"
+				+ usuario.getUser() + "' and userPassword='"
+				+ usuario.getPassword() + "' as total";
+		try {
+			ResultSet rs = stmt.executeQuery(query);
+			return rs.getInt("total") > 0;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
+	public ArrayList<Email> GetEmails(int userId, Date date) {
+		ArrayList<Email> listEmails = new ArrayList<Email>();
+
+		String query = "select * from EmailSent where sender='" + userId
+				+ "' and dt='" + date + "'";
+		try {
+			ResultSet rs = stmt.executeQuery(query);
+			while (rs.next()) {
+				Email email = new Email();		
+				email.setTo(rs.getString("toEmail"));
+				email.setMessage(rs.getString("messageEmail"));
+
+				listEmails.add(email);
+			}
+			return listEmails;
+		} catch (Exception e) {
+			return null;
+		}
+	}
+
+	public void SaveEmails(Email email, int userId) throws SQLException {
+		String query = "insert into EmailSent values (";
+		query += userId + ",";
+		query += new Date() + ",";
+		query += email.getTo() + ",";
+		query += email.getMessage() + ")";
+
+		stmt.executeQuery(query);
+
 	}
 }

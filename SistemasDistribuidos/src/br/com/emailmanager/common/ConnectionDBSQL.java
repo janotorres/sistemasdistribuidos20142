@@ -25,8 +25,7 @@ public class ConnectionDBSQL {
 
 		try {
 
-			String connectionUrl = "jdbc:sqlserver://WS534/SQLEXPRESS;"
-					+ "databaseName=EmailManager;user=pronim;password=PRO2010nim;";
+			String connectionUrl = "jdbc:sqlserver:";
 			connection = DriverManager.getConnection(connectionUrl);
 			stmt = connection.createStatement();
 

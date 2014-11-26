@@ -1,4 +1,3 @@
-
 package br.com.emailmanager.webservice.jaxws;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -10,6 +9,5 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "sendEmailResponse", namespace = "http://webservice.emailmanager.com.br/")
 public class SendEmailResponse {
-
 
 }

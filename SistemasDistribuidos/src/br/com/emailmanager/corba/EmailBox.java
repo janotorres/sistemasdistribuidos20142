@@ -13,33 +13,35 @@ import EmailBoxServer.Email_Box_ServerHelper;
 public class EmailBox {
 
 	public static void main(String[] args) {
-		 try{
-		    
-		      ORB orb = ORB.init(args, null);
-		  
-		      POA rootpoa = POAHelper.narrow(orb.resolve_initial_references("RootPOA"));
-		      rootpoa.the_POAManager().activate();
+		try {
 
-		    
-		      org.omg.CORBA.Object ref = rootpoa.servant_to_reference(new EmailBoxPOA());
-		      Email_Box_Server href = Email_Box_ServerHelper.narrow(ref);
-			 
-		      org.omg.CORBA.Object objRef = orb.resolve_initial_references("NameService");
-		      NamingContextExt ncRef = NamingContextExtHelper.narrow(objRef);
+			ORB orb = ORB.init(args, null);
 
-		      String name = "Email_Box_Server";
-		      NameComponent path[] = ncRef.to_name( name );
-		      ncRef.rebind(path, href);
+			POA rootpoa = POAHelper.narrow(orb
+					.resolve_initial_references("RootPOA"));
+			rootpoa.the_POAManager().activate();
 
-		      System.out.println("Servidor aguardando requisicoes ....");
-		     
-		      orb.run();
-		    } catch (Exception e) {
-		        System.err.println("ERRO: " + e);
-		        e.printStackTrace(System.out);
-		    }
-		    System.out.println("Encerrando o Servidor.");
+			org.omg.CORBA.Object ref = rootpoa
+					.servant_to_reference(new EmailBoxPOA());
+			Email_Box_Server href = Email_Box_ServerHelper.narrow(ref);
 
-	}	
+			org.omg.CORBA.Object objRef = orb
+					.resolve_initial_references("NameService");
+			NamingContextExt ncRef = NamingContextExtHelper.narrow(objRef);
+
+			String name = "Email_Box_Server";
+			NameComponent path[] = ncRef.to_name(name);
+			ncRef.rebind(path, href);
+
+			System.out.println("Servidor aguardando requisicoes ....");
+
+			orb.run();
+		} catch (Exception e) {
+			System.err.println("ERRO: " + e);
+			e.printStackTrace(System.out);
+		}
+		System.out.println("Encerrando o Servidor.");
+
+	}
 
 }

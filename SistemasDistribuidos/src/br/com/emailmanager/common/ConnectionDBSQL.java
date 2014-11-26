@@ -46,8 +46,8 @@ public class ConnectionDBSQL {
 
 	public Boolean existsAnyUser(User user) {
 		String query = "select Count(*) from EmailUser where userName='"
-				+ user.getUser() + "' and userPassword='"
-				+ user.getPassword() + "' as total";
+				+ user.getUser() + "' and userPassword='" + user.getPassword()
+				+ "' as total";
 		try {
 			ResultSet rs = stmt.executeQuery(query);
 			return rs.getInt("total") > 0;
@@ -63,23 +63,24 @@ public class ConnectionDBSQL {
 				+ "' and dt='" + date + "'";
 		try {
 			ResultSet rs = stmt.executeQuery(query);
-			
+
 			int aux = 0;
 			int rowcount = 0;
 			if (rs.last()) {
-			  rowcount = rs.getRow();
-			  rs.beforeFirst(); 
+				rowcount = rs.getRow();
+				rs.beforeFirst();
 			}
 			arrayEmails = new Email[rowcount];
-			
+
 			while (rs.next() && aux != rowcount) {
-				Email email = new Email(rs.getString("messageEmail"),rs.getString("toEmail"),null);	
+				Email email = new Email(rs.getString("messageEmail"),
+						rs.getString("toEmail"), null);
 
 				arrayEmails[aux] = email;
 				aux++;
 			}
 			return arrayEmails;
-			
+
 		} catch (Exception e) {
 			return null;
 		}

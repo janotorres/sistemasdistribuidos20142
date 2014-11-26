@@ -13,7 +13,8 @@ public class EmailBoxPOA extends Email_Box_ServerPOA {
 
 	@Override
 	public void saveEmail(int userId, String toEmail, String messageEmail) {
-		EmailBoxServer.Email email = new EmailBoxServer.Email(messageEmail, toEmail, null);
+		EmailBoxServer.Email email = new EmailBoxServer.Email(messageEmail,
+				toEmail, null);
 
 		ConnectionDBSQL connection = new ConnectionDBSQL();
 		try {
@@ -28,12 +29,12 @@ public class EmailBoxPOA extends Email_Box_ServerPOA {
 	public EmailBoxServer.Email[] getEmails(int userId, String date) {
 		ConnectionDBSQL connection = new ConnectionDBSQL();
 		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-	    Date result = null;
+		Date result = null;
 		try {
 			result = df.parse(date);
-		} catch (ParseException e) {			
+		} catch (ParseException e) {
 			e.printStackTrace();
-		}  
+		}
 		return connection.getEmails(userId, result);
 	}
 

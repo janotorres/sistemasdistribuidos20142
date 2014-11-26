@@ -8,6 +8,7 @@ import java.rmi.RemoteException;
 import javax.jws.WebMethod;
 import javax.jws.WebService;
 
+import br.com.emailmanager.common.ConnectionDBSQL;
 import br.com.emailmanager.common.User;
 import br.com.emailmanager.rmi.Server;
 
@@ -17,10 +18,15 @@ public class AuthenticationServer {
 	private User user;
 
 	@WebMethod
-	public void authenticate(String userEmail, String password) {
+	public Boolean authenticate(String userEmail, String password) {
 		user = new User();
 		user.setUser(userEmail);
 		user.setPassword(password);
+		
+		ConnectionDBSQL connection = new ConnectionDBSQL();
+		Boolean existsUser = connection.existsAnyUser(user);		
+		connection.closeConnection();
+		return existsUser;
 	}
 
 	@WebMethod

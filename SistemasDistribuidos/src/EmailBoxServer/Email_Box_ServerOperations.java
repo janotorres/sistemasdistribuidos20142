@@ -11,5 +11,6 @@ package EmailBoxServer;
 public interface Email_Box_ServerOperations 
 {
   void saveEmail (int userId, String toEmail, String messageEmail);
-  EmailBoxServer.Email[] getEmails (int userId, String date);
+
+	EmailBoxServer.Email[] getEmails (int userId, String date);
 } // interface Email_Box_ServerOperations

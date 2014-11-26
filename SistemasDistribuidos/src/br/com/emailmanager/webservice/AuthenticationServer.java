@@ -7,6 +7,7 @@ import java.rmi.RemoteException;
 
 import javax.jws.WebMethod;
 import javax.jws.WebService;
+import javax.mail.MessagingException;
 
 import br.com.emailmanager.common.ConnectionDBSQL;
 import br.com.emailmanager.common.User;
@@ -22,9 +23,9 @@ public class AuthenticationServer {
 		user = new User();
 		user.setUser(userEmail);
 		user.setPassword(password);
-		
+
 		ConnectionDBSQL connection = new ConnectionDBSQL();
-		Boolean existsUser = connection.existsAnyUser(user);		
+		Boolean existsUser = connection.existsAnyUser(user);
 		connection.closeConnection();
 		return existsUser;
 	}
@@ -36,7 +37,12 @@ public class AuthenticationServer {
 					user.getUser());
 
 			Server obj = (Server) Naming.lookup("//localhost/EmailServer");
-			obj.sendEmail();
+
+			obj.sendEmail(email);
+
+		} catch (MessagingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

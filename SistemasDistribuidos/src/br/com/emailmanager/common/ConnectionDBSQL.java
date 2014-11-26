@@ -5,10 +5,9 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.Date;
 
-import br.com.emailmanager.webservice.User;
+import EmailBoxServer.Email;
 
 public class ConnectionDBSQL {
 
@@ -36,7 +35,7 @@ public class ConnectionDBSQL {
 		}
 	}
 
-	public void CloseConnection() {
+	public void closeConnection() {
 		try {
 			connection.close();
 			stmt.close();
@@ -45,10 +44,10 @@ public class ConnectionDBSQL {
 		}
 	}
 
-	public Boolean AnyUser(User usuario) {
+	public Boolean existsAnyUser(User user) {
 		String query = "select Count(*) from EmailUser where userName='"
-				+ usuario.getUser() + "' and userPassword='"
-				+ usuario.getPassword() + "' as total";
+				+ user.getUser() + "' and userPassword='"
+				+ user.getPassword() + "' as total";
 		try {
 			ResultSet rs = stmt.executeQuery(query);
 			return rs.getInt("total") > 0;
@@ -57,32 +56,41 @@ public class ConnectionDBSQL {
 		}
 	}
 
-	public ArrayList<Email> GetEmails(int userId, Date date) {
-		ArrayList<Email> listEmails = new ArrayList<Email>();
+	public Email[] getEmails(int userId, Date date) {
+		Email[] arrayEmails;
 
 		String query = "select * from EmailSent where sender='" + userId
 				+ "' and dt='" + date + "'";
 		try {
 			ResultSet rs = stmt.executeQuery(query);
-			while (rs.next()) {
-				Email email = new Email();		
-				email.setTo(rs.getString("toEmail"));
-				email.setMessage(rs.getString("messageEmail"));
-
-				listEmails.add(email);
+			
+			int aux = 0;
+			int rowcount = 0;
+			if (rs.last()) {
+			  rowcount = rs.getRow();
+			  rs.beforeFirst(); 
 			}
-			return listEmails;
+			arrayEmails = new Email[rowcount];
+			
+			while (rs.next() && aux != rowcount) {
+				Email email = new Email(rs.getString("messageEmail"),rs.getString("toEmail"),null);	
+
+				arrayEmails[aux] = email;
+				aux++;
+			}
+			return arrayEmails;
+			
 		} catch (Exception e) {
 			return null;
 		}
 	}
 
-	public void SaveEmails(Email email, int userId) throws SQLException {
+	public void saveEmails(Email email, int userId) throws SQLException {
 		String query = "insert into EmailSent values (";
 		query += userId + ",";
 		query += new Date() + ",";
-		query += email.getTo() + ",";
-		query += email.getMessage() + ")";
+		query += email.To + ",";
+		query += email.Message + ")";
 
 		stmt.executeQuery(query);
 

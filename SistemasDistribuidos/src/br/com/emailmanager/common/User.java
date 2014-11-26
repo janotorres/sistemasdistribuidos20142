@@ -1,4 +1,4 @@
-package br.com.emailmanager.webservice;
+package br.com.emailmanager.common;
 
 public class User {
 

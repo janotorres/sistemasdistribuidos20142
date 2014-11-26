@@ -4,6 +4,6 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 
 public interface Server extends Remote {
-	public Boolean EnviarEmail() throws RemoteException;
+	public Boolean sendEmail() throws RemoteException;
 
 }

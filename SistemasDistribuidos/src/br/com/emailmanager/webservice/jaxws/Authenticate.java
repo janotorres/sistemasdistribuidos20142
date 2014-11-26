@@ -7,13 +7,13 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-@XmlRootElement(name = "EnviarEmail", namespace = "http://webservice.emailmanager.com.br/")
+@XmlRootElement(name = "authenticate", namespace = "http://webservice.emailmanager.com.br/")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "EnviarEmail", namespace = "http://webservice.emailmanager.com.br/", propOrder = {
+@XmlType(name = "authenticate", namespace = "http://webservice.emailmanager.com.br/", propOrder = {
     "arg0",
     "arg1"
 })
-public class EnviarEmail {
+public class Authenticate {
 
     @XmlElement(name = "arg0", namespace = "")
     private String arg0;

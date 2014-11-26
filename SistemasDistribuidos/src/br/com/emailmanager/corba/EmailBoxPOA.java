@@ -5,31 +5,27 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 
 import br.com.emailmanager.common.ConnectionDBSQL;
-import br.com.emailmanager.common.Email;
 import EmailBoxServer.Email_Box_ServerPOA;
 
 public class EmailBoxPOA extends Email_Box_ServerPOA {
 
 	@Override
-	public void salvarEmail(int userId, String toEmail, String messageEmail) {
-		Email email = new Email();
-		email.setMessage(messageEmail);
-		email.setTo(toEmail);
+	public void saveEmail(int userId, String toEmail, String messageEmail) {
+		EmailBoxServer.Email email = new EmailBoxServer.Email(messageEmail, toEmail, null);
 
 		ConnectionDBSQL connection = new ConnectionDBSQL();
 		try {
-			connection.SaveEmails(email, userId);
+			connection.saveEmails(email, userId);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		connection.CloseConnection();
+		connection.closeConnection();
 	}
 
 	@Override
-	public String consultarEmail(int userId, String date) {
+	public EmailBoxServer.Email[] getEmails(int userId, String date) {
 		ConnectionDBSQL connection = new ConnectionDBSQL();
 		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
 	    Date result = null;
@@ -38,8 +34,7 @@ public class EmailBoxPOA extends Email_Box_ServerPOA {
 		} catch (ParseException e) {			
 			e.printStackTrace();
 		}  
-		connection.GetEmails(userId, result);
-		return null;
+		return connection.getEmails(userId, result);
 	}
 
 }

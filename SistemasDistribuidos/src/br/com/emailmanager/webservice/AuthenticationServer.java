@@ -8,33 +8,29 @@ import java.rmi.RemoteException;
 import javax.jws.WebMethod;
 import javax.jws.WebService;
 
-import br.com.emailmanager.common.Email;
+import br.com.emailmanager.common.User;
 import br.com.emailmanager.rmi.Server;
 
 @WebService
 public class AuthenticationServer {
 
-	private User usuarioAutenticado;
-	
+	private User user;
+
 	@WebMethod
-	public void autenticar(String user, String password)
-	{
-		usuarioAutenticado = new User();
-		usuarioAutenticado.setUser(user);
-		usuarioAutenticado.setPassword(password);
+	public void authenticate(String userEmail, String password) {
+		user = new User();
+		user.setUser(userEmail);
+		user.setPassword(password);
 	}
-	
+
 	@WebMethod
-	public void EnviarEmail(String to, String message)
-	{
+	public void sendEmail(String to, String message) {
 		try {
-			Email email = new Email();
-			email.setFrom(usuarioAutenticado.getUser());
-			email.setMessage(message);
-			email.setTo(to);
-			
-			Server obj = (Server)Naming.lookup("//localhost/EmailServer");
-			obj.EnviarEmail();
+			EmailBoxServer.Email email = new EmailBoxServer.Email(message, to,
+					user.getUser());
+
+			Server obj = (Server) Naming.lookup("//localhost/EmailServer");
+			obj.sendEmail();
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

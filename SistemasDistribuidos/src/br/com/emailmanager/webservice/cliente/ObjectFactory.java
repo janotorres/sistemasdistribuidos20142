@@ -10,7 +10,7 @@ import javax.xml.namespace.QName;
 /**
  * This object contains factory methods for each 
  * Java content interface and Java element interface 
- * generated in the br.com.emailmanager.webservice package. 
+ * generated in the br.com.emailmanager.cliente package. 
  * <p>An ObjectFactory allows you to programatically 
  * construct new instances of the Java representation 
  * for XML content. The Java representation of XML 
@@ -24,84 +24,84 @@ import javax.xml.namespace.QName;
 @XmlRegistry
 public class ObjectFactory {
 
-    private final static QName _EnviarEmailResponse_QNAME = new QName("http://webservice.emailmanager.com.br/", "EnviarEmailResponse");
-    private final static QName _EnviarEmail_QNAME = new QName("http://webservice.emailmanager.com.br/", "EnviarEmail");
-    private final static QName _Autenticar_QNAME = new QName("http://webservice.emailmanager.com.br/", "autenticar");
-    private final static QName _AutenticarResponse_QNAME = new QName("http://webservice.emailmanager.com.br/", "autenticarResponse");
+    private final static QName _AuthenticateResponse_QNAME = new QName("http://webservice.emailmanager.com.br/", "authenticateResponse");
+    private final static QName _SendEmail_QNAME = new QName("http://webservice.emailmanager.com.br/", "sendEmail");
+    private final static QName _SendEmailResponse_QNAME = new QName("http://webservice.emailmanager.com.br/", "sendEmailResponse");
+    private final static QName _Authenticate_QNAME = new QName("http://webservice.emailmanager.com.br/", "authenticate");
 
     /**
-     * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: br.com.emailmanager.webservice
+     * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: br.com.emailmanager.cliente
      * 
      */
     public ObjectFactory() {
     }
 
     /**
-     * Create an instance of {@link EnviarEmail }
+     * Create an instance of {@link SendEmail }
      * 
      */
-    public EnviarEmail createEnviarEmail() {
-        return new EnviarEmail();
+    public SendEmail createSendEmail() {
+        return new SendEmail();
     }
 
     /**
-     * Create an instance of {@link EnviarEmailResponse }
+     * Create an instance of {@link AuthenticateResponse }
      * 
      */
-    public EnviarEmailResponse createEnviarEmailResponse() {
-        return new EnviarEmailResponse();
+    public AuthenticateResponse createAuthenticateResponse() {
+        return new AuthenticateResponse();
     }
 
     /**
-     * Create an instance of {@link Autenticar }
+     * Create an instance of {@link SendEmailResponse }
      * 
      */
-    public Autenticar createAutenticar() {
-        return new Autenticar();
+    public SendEmailResponse createSendEmailResponse() {
+        return new SendEmailResponse();
     }
 
     /**
-     * Create an instance of {@link AutenticarResponse }
+     * Create an instance of {@link Authenticate }
      * 
      */
-    public AutenticarResponse createAutenticarResponse() {
-        return new AutenticarResponse();
+    public Authenticate createAuthenticate() {
+        return new Authenticate();
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link EnviarEmailResponse }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link AuthenticateResponse }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://webservice.emailmanager.com.br/", name = "EnviarEmailResponse")
-    public JAXBElement<EnviarEmailResponse> createEnviarEmailResponse(EnviarEmailResponse value) {
-        return new JAXBElement<EnviarEmailResponse>(_EnviarEmailResponse_QNAME, EnviarEmailResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://webservice.emailmanager.com.br/", name = "authenticateResponse")
+    public JAXBElement<AuthenticateResponse> createAuthenticateResponse(AuthenticateResponse value) {
+        return new JAXBElement<AuthenticateResponse>(_AuthenticateResponse_QNAME, AuthenticateResponse.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link EnviarEmail }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link SendEmail }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://webservice.emailmanager.com.br/", name = "EnviarEmail")
-    public JAXBElement<EnviarEmail> createEnviarEmail(EnviarEmail value) {
-        return new JAXBElement<EnviarEmail>(_EnviarEmail_QNAME, EnviarEmail.class, null, value);
+    @XmlElementDecl(namespace = "http://webservice.emailmanager.com.br/", name = "sendEmail")
+    public JAXBElement<SendEmail> createSendEmail(SendEmail value) {
+        return new JAXBElement<SendEmail>(_SendEmail_QNAME, SendEmail.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link Autenticar }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link SendEmailResponse }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://webservice.emailmanager.com.br/", name = "autenticar")
-    public JAXBElement<Autenticar> createAutenticar(Autenticar value) {
-        return new JAXBElement<Autenticar>(_Autenticar_QNAME, Autenticar.class, null, value);
+    @XmlElementDecl(namespace = "http://webservice.emailmanager.com.br/", name = "sendEmailResponse")
+    public JAXBElement<SendEmailResponse> createSendEmailResponse(SendEmailResponse value) {
+        return new JAXBElement<SendEmailResponse>(_SendEmailResponse_QNAME, SendEmailResponse.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link AutenticarResponse }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link Authenticate }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://webservice.emailmanager.com.br/", name = "autenticarResponse")
-    public JAXBElement<AutenticarResponse> createAutenticarResponse(AutenticarResponse value) {
-        return new JAXBElement<AutenticarResponse>(_AutenticarResponse_QNAME, AutenticarResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://webservice.emailmanager.com.br/", name = "authenticate")
+    public JAXBElement<Authenticate> createAuthenticate(Authenticate value) {
+        return new JAXBElement<Authenticate>(_Authenticate_QNAME, Authenticate.class, null, value);
     }
 
 }

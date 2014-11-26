@@ -2,7 +2,6 @@ package br.com.emailmanager.common;
 
 import java.util.Scanner;
 
-import br.com.emailmanager.webservice.User;
 import br.com.emailmanager.webservice.cliente.AuthenticationServerService;
 
 public class Main {
@@ -14,23 +13,23 @@ public class Main {
 		System.out.println("1 - Criar usuário");
 		System.out.println("2 - Autenticar usuário");
 		
-		int opcao = scanner.nextInt();
+		int option = scanner.nextInt();
 		
 		br.com.emailmanager.webservice.cliente.AuthenticationServer port = new AuthenticationServerService().getAuthenticationServerPort();
-		User usuario = new User();
-		if (opcao == 1) {
+		User user = new User();
+		if (option == 1) {
 			System.out.println("Usuário:");
-			usuario.setUser(scanner.next());
+			user.setUser(scanner.next());
 			System.out.println("Senha:");
-			usuario.setPassword(scanner.next());
+			user.setPassword(scanner.next());
 		}
-		else if (opcao == 2) {
+		else if (option == 2) {
 			System.out.println("Usuário:");
-			usuario.setUser(scanner.next());
+			user.setUser(scanner.next());
 			System.out.println("Senha:");
-			usuario.setPassword(scanner.next());			
+			user.setPassword(scanner.next());			
 			
-			port.autenticar(usuario.getUser(), usuario.getPassword());			
+			port.authenticate(user.getUser(), user.getPassword());			
 		}
 		else
 		{
@@ -40,7 +39,7 @@ public class Main {
 		String to = scanner.next();
 		String message = scanner.next();	
 		
-		port.enviarEmail(to, message);		
+		port.sendEmail(to, message);		
 		
 		scanner.close();		
 	}

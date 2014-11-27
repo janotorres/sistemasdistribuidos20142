@@ -2,6 +2,7 @@ module EmailBoxServer{
 
 struct Email
 {
+   long emailId;
    string Message;
    string To;
    string From;
@@ -15,5 +16,7 @@ typedef sequence<Email> Emails;
 		void saveEmail(in long userId, in string toEmail, in string messageEmail);
 
 		Emails getEmails(in long userId, in string date);
+		
+		void deleteEmail(in long emailId);
 	};
 };

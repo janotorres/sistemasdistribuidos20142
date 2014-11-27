@@ -33,7 +33,7 @@ public class AuthenticationServer {
 	@WebMethod
 	public void sendEmail(String to, String message) {
 		try {
-			EmailBoxServer.Email email = new EmailBoxServer.Email(message, to,
+			EmailBoxServer.Email email = new EmailBoxServer.Email(0, message, to,
 					user.getUser());
 
 			Server obj = (Server) Naming.lookup("//localhost/EmailServer");

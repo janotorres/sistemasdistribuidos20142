@@ -13,7 +13,7 @@ public class EmailBoxPOA extends Email_Box_ServerPOA {
 
 	@Override
 	public void saveEmail(int userId, String toEmail, String messageEmail) {
-		EmailBoxServer.Email email = new EmailBoxServer.Email(messageEmail,
+		EmailBoxServer.Email email = new EmailBoxServer.Email(0, messageEmail,
 				toEmail, null);
 
 		ConnectionDBSQL connection = new ConnectionDBSQL();
@@ -36,6 +36,18 @@ public class EmailBoxPOA extends Email_Box_ServerPOA {
 			e.printStackTrace();
 		}
 		return connection.getEmails(userId, result);
+	}
+
+	@Override
+	public void deleteEmail(int emailId) {
+		ConnectionDBSQL connection = new ConnectionDBSQL();
+		try {
+			connection.deleteEmail(emailId);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		connection.closeConnection();
+		
 	}
 
 }

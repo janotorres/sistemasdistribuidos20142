@@ -72,7 +72,7 @@ public class ConnectionDBSQL {
 			arrayEmails = new Email[rowcount];
 
 			while (rs.next() && aux != rowcount) {
-				Email email = new Email(rs.getString("messageEmail"),
+				Email email = new Email(rs.getInt("id"), rs.getString("messageEmail"),
 						rs.getString("toEmail"), null);
 
 				arrayEmails[aux] = email;
@@ -94,5 +94,10 @@ public class ConnectionDBSQL {
 
 		stmt.executeQuery(query);
 
+	}
+	
+	public void deleteEmail(int emailId) throws SQLException {
+		String query = "delete * from EmailSent where id =" + emailId;
+		stmt.executeQuery(query);
 	}
 }

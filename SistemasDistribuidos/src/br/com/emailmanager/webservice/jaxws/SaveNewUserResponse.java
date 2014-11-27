@@ -6,10 +6,10 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-@XmlRootElement(name = "sendEmailResponse", namespace = "http://webservice.emailmanager.com.br/")
+@XmlRootElement(name = "saveNewUserResponse", namespace = "http://webservice.emailmanager.com.br/")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "sendEmailResponse", namespace = "http://webservice.emailmanager.com.br/")
-public class SendEmailResponse {
+@XmlType(name = "saveNewUserResponse", namespace = "http://webservice.emailmanager.com.br/")
+public class SaveNewUserResponse {
 
 
 }

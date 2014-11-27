@@ -100,4 +100,12 @@ public class ConnectionDBSQL {
 		String query = "delete * from EmailSent where id =" + emailId;
 		stmt.executeQuery(query);
 	}
+
+	public void saveNewUser(User user) throws SQLException {
+		String query = "insert into EmailUser values (";
+		query += user.getUser() + ",";
+		query += user.getPassword() + ")";
+
+		stmt.executeQuery(query);
+	}
 }

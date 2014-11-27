@@ -7,12 +7,12 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for sendEmail complex type.
+ * <p>Java class for saveNewUser complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="sendEmail">
+ * &lt;complexType name="saveNewUser">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
@@ -27,11 +27,11 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "sendEmail", propOrder = {
+@XmlType(name = "saveNewUser", propOrder = {
     "arg0",
     "arg1"
 })
-public class SendEmail {
+public class SaveNewUser {
 
     protected String arg0;
     protected String arg1;

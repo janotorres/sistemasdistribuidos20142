@@ -4,10 +4,10 @@ import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.sql.SQLException;
 
 import javax.jws.WebMethod;
 import javax.jws.WebService;
-import javax.mail.MessagingException;
 
 import br.com.emailmanager.common.ConnectionDBSQL;
 import br.com.emailmanager.common.User;
@@ -17,6 +17,20 @@ import br.com.emailmanager.rmi.Server;
 public class AuthenticationServer {
 
 	private User user;
+
+	public void saveNewUser(String userEmail, String password) {
+		user = new User();
+		user.setUser(userEmail);
+		user.setPassword(password);
+
+		ConnectionDBSQL connection = new ConnectionDBSQL();
+		try {
+			connection.saveNewUser(user);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		connection.closeConnection();
+	}
 
 	@WebMethod
 	public Boolean authenticate(String userEmail, String password) {
@@ -33,16 +47,13 @@ public class AuthenticationServer {
 	@WebMethod
 	public void sendEmail(String to, String message) {
 		try {
-			EmailBoxServer.Email email = new EmailBoxServer.Email(0, message, to,
-					user.getUser());
+			EmailBoxServer.Email email = new EmailBoxServer.Email(0, message,
+					to, user.getUser());
 
 			Server obj = (Server) Naming.lookup("//localhost/EmailServer");
 
 			obj.sendEmail(email);
 
-		} catch (MessagingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -1,6 +1,8 @@
 package br.com.emailmanager.common;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable{
 
 	private String user;
 	private String password;

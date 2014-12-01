@@ -4,6 +4,7 @@ import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.server.UnicastRemoteObject;
+import java.sql.SQLException;
 import java.util.*;
 
 import javax.mail.*;
@@ -14,8 +15,8 @@ import org.omg.CORBA.ORB;
 import org.omg.CosNaming.NamingContextExt;
 import org.omg.CosNaming.NamingContextExtHelper;
 
-
-
+import br.com.emailmanager.common.ConnectionDBSQL;
+import br.com.emailmanager.common.User;
 import EmailBoxServer.Email;
 import EmailBoxServer.Email_Box_Server;
 import EmailBoxServer.Email_Box_ServerHelper;
@@ -62,9 +63,11 @@ public class EmailServer extends UnicastRemoteObject implements Server {
 
 				System.out.println("E-mail enviado com sucesso");
 
-				String args[] = new String[2];
+				String args[] = new String[4];
 				args[0] = "-ORBInitialHost";
-				args[1] = "localhost";				
+				args[1] = "localhost";
+				args[2] = "-ORBInitialPort";
+				args[3] = "2222";
 				ORB orb = ORB.init(args, null);
 				org.omg.CORBA.Object objRef = orb
 						.resolve_initial_references("NameService");
@@ -81,6 +84,28 @@ public class EmailServer extends UnicastRemoteObject implements Server {
 			e.printStackTrace();
 		}
 		return true;
+	}
+
+	@Override
+	public int saveNewUser(User user)  throws RemoteException {
+		ConnectionDBSQL connection = new ConnectionDBSQL();
+		int id = 0;
+		try {
+			id = connection.saveNewUser(user);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		connection.closeConnection();
+		System.out.println("Usuário criado com sucesso");
+		return id;
+	}
+
+	@Override
+	public int authenticate(User user)  throws RemoteException {
+		ConnectionDBSQL connection = new ConnectionDBSQL();
+		int id = connection.existsAnyUser(user);
+		connection.closeConnection();
+		return id;
 	}
 
 	public static void main(String[] args) {

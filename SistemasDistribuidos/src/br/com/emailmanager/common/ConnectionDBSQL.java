@@ -16,8 +16,8 @@ public class ConnectionDBSQL {
 
 	public ConnectionDBSQL() {
 		try {
-			Class.forName("com.microsoft.jdbc.sqlserver.SQLServerDriver");
-
+			String driverName = "com.mysql.jdbc.Driver"; 
+			Class.forName(driverName); 
 		} catch (java.lang.ClassNotFoundException e) {
 			System.err.print("ClassNotFoundException: ");
 			System.err.println(e.getMessage());
@@ -25,8 +25,15 @@ public class ConnectionDBSQL {
 
 		try {
 
-			String connectionUrl = "jdbc:sqlserver:";
-			connection = DriverManager.getConnection(connectionUrl);
+			//Configurando a nossa conexão com um banco de dados
+			String serverName = "localhost"; 
+			//caminho do servidor do BD 
+			String mydatabase = "emailmanager"; 
+			//nome do seu banco de dados 
+			String url = "jdbc:mysql://" + serverName + "/" + mydatabase; String username = "root"; 
+			//nome de um usuário de seu BD '
+			String password = "123456"; //sua senha de acesso 
+			connection = DriverManager.getConnection(url, username, password);
 			stmt = connection.createStatement();
 
 		} catch (SQLException ex) {
@@ -95,21 +102,21 @@ public class ConnectionDBSQL {
 		query += email.To + ",";
 		query += email.Message + ")";
 
-		stmt.executeQuery(query);
+		stmt.executeUpdate(query);
 
 	}
 	
 	public void deleteEmail(int emailId) throws SQLException {
 		String query = "delete * from EmailSent where id =" + emailId;
-		stmt.executeQuery(query);
+		stmt.executeUpdate(query);
 	}
 
 	public int saveNewUser(User user) throws SQLException {
-		String query = "insert into EmailUser values (";
-		query += user.getUser() + ",";
-		query += user.getPassword() + ")";
+		String query = "insert into EmailUser(userName, userPassword)  values (";
+		query += "'" + user.getUser() + "'" + ",";
+		query += "'" + user.getPassword() + "'" + ")";
 
-		stmt.executeQuery(query);
+		stmt.executeUpdate(query);
 		
 		query = "select max(id) from EmailUser as id";
 		try {

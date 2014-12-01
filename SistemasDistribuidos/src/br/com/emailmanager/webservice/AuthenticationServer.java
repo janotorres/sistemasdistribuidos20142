@@ -24,30 +24,40 @@ public class AuthenticationServer {
 		user.setUser(userEmail);
 		user.setPassword(password);
 
-		/*ConnectionDBSQL connection = new ConnectionDBSQL();
+		Server obj = null;
 		try {
-			int id = connection.saveNewUser(user);
-		} catch (SQLException e) {
+			obj = (Server) Naming.lookup("//localhost:2121/EmailServer");
+		} catch (MalformedURLException | RemoteException | NotBoundException e) {
 			e.printStackTrace();
 		}
-		connection.closeConnection();
-		user.setId(id);*/
-		
-		System.out.println("Usuário criado com sucesso");
+		try {
+			user.setId(obj.saveNewUser(user));
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@WebMethod
 	public Boolean authenticate(String userEmail, String password) {
 		user = new User();
 		user.setUser(userEmail);
-		user.setPassword(password);		
+		user.setPassword(password);
 
-		/*ConnectionDBSQL connection = new ConnectionDBSQL();
-		int idUser = connection.existsAnyUser(user);
-		connection.closeConnection();
-		user.setId(idUser);
-		return idUser != 0;*/
-		return true;
+		Server obj = null;
+		try {
+			obj = (Server) Naming.lookup("//localhost:2121/EmailServer");
+		} catch (MalformedURLException | RemoteException | NotBoundException e) {
+			e.printStackTrace();
+		}
+		try {
+			user.setId(obj.saveNewUser(user));
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return user.getId() != 0;
+
 	}
 
 	@WebMethod
@@ -71,10 +81,9 @@ public class AuthenticationServer {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@WebMethod
-	public User getAuthenticateUser()
-	{
+	public User getAuthenticateUser() {
 		return user;
-	}	
+	}
 }

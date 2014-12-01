@@ -2,18 +2,18 @@
 
 create table EmailUser
 (
-id int primary key identity not null,
-userName varchar(150),
-userPassword varchar(10)
+id int primary key AUTO_INCREMENT not null,
+userName char(150),
+userPassword char(10)
 )
 
 create table EmailSent
 (
-id int primary key identity not null,
-sender int references EmailUser(id),
+id int primary key AUTO_INCREMENT not null,
+sender int,
 dt datetime,
-toEmail varchar(150),
-messageEmail varchar(max)
+toEmail char(150),
+messageEmail char(max)
 )
 
 

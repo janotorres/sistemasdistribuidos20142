@@ -24,26 +24,18 @@ import javax.xml.namespace.QName;
 @XmlRegistry
 public class ObjectFactory {
 
-    private final static QName _SaveNewUserResponse_QNAME = new QName("http://webservice.emailmanager.com.br/", "saveNewUserResponse");
+    private final static QName _SaveNewUser_QNAME = new QName("http://webservice.emailmanager.com.br/", "saveNewUser");
     private final static QName _AuthenticateResponse_QNAME = new QName("http://webservice.emailmanager.com.br/", "authenticateResponse");
-    private final static QName _SendEmail_QNAME = new QName("http://webservice.emailmanager.com.br/", "sendEmail");
+    private final static QName _SaveNewUserResponse_QNAME = new QName("http://webservice.emailmanager.com.br/", "saveNewUserResponse");
     private final static QName _SendEmailResponse_QNAME = new QName("http://webservice.emailmanager.com.br/", "sendEmailResponse");
     private final static QName _Authenticate_QNAME = new QName("http://webservice.emailmanager.com.br/", "authenticate");
-    private final static QName _SaveNewUser_QNAME = new QName("http://webservice.emailmanager.com.br/", "saveNewUser");
+    private final static QName _SendEmail_QNAME = new QName("http://webservice.emailmanager.com.br/", "sendEmail");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: br.com.emailmanager.webservice.cliente
      * 
      */
     public ObjectFactory() {
-    }
-
-    /**
-     * Create an instance of {@link SaveNewUserResponse }
-     * 
-     */
-    public SaveNewUserResponse createSaveNewUserResponse() {
-        return new SaveNewUserResponse();
     }
 
     /**
@@ -55,11 +47,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link AuthenticateResponse }
+     * Create an instance of {@link Authenticate }
      * 
      */
-    public AuthenticateResponse createAuthenticateResponse() {
-        return new AuthenticateResponse();
+    public Authenticate createAuthenticate() {
+        return new Authenticate();
     }
 
     /**
@@ -71,11 +63,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Authenticate }
+     * Create an instance of {@link SaveNewUserResponse }
      * 
      */
-    public Authenticate createAuthenticate() {
-        return new Authenticate();
+    public SaveNewUserResponse createSaveNewUserResponse() {
+        return new SaveNewUserResponse();
+    }
+
+    /**
+     * Create an instance of {@link AuthenticateResponse }
+     * 
+     */
+    public AuthenticateResponse createAuthenticateResponse() {
+        return new AuthenticateResponse();
     }
 
     /**
@@ -87,12 +87,12 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link SaveNewUserResponse }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link SaveNewUser }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://webservice.emailmanager.com.br/", name = "saveNewUserResponse")
-    public JAXBElement<SaveNewUserResponse> createSaveNewUserResponse(SaveNewUserResponse value) {
-        return new JAXBElement<SaveNewUserResponse>(_SaveNewUserResponse_QNAME, SaveNewUserResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://webservice.emailmanager.com.br/", name = "saveNewUser")
+    public JAXBElement<SaveNewUser> createSaveNewUser(SaveNewUser value) {
+        return new JAXBElement<SaveNewUser>(_SaveNewUser_QNAME, SaveNewUser.class, null, value);
     }
 
     /**
@@ -105,12 +105,12 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link SendEmail }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link SaveNewUserResponse }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://webservice.emailmanager.com.br/", name = "sendEmail")
-    public JAXBElement<SendEmail> createSendEmail(SendEmail value) {
-        return new JAXBElement<SendEmail>(_SendEmail_QNAME, SendEmail.class, null, value);
+    @XmlElementDecl(namespace = "http://webservice.emailmanager.com.br/", name = "saveNewUserResponse")
+    public JAXBElement<SaveNewUserResponse> createSaveNewUserResponse(SaveNewUserResponse value) {
+        return new JAXBElement<SaveNewUserResponse>(_SaveNewUserResponse_QNAME, SaveNewUserResponse.class, null, value);
     }
 
     /**
@@ -132,12 +132,12 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link SaveNewUser }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link SendEmail }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://webservice.emailmanager.com.br/", name = "saveNewUser")
-    public JAXBElement<SaveNewUser> createSaveNewUser(SaveNewUser value) {
-        return new JAXBElement<SaveNewUser>(_SaveNewUser_QNAME, SaveNewUser.class, null, value);
+    @XmlElementDecl(namespace = "http://webservice.emailmanager.com.br/", name = "sendEmail")
+    public JAXBElement<SendEmail> createSendEmail(SendEmail value) {
+        return new JAXBElement<SendEmail>(_SendEmail_QNAME, SendEmail.class, null, value);
     }
 
 }

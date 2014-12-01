@@ -7,9 +7,9 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for sendEmail complex type.
+ * <p>Classe Java de sendEmail complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>O seguinte fragmento do esquema especifica o conteúdo esperado contido dentro desta classe.
  * 
  * <pre>
  * &lt;complexType name="sendEmail">
@@ -37,7 +37,7 @@ public class SendEmail {
     protected String arg1;
 
     /**
-     * Gets the value of the arg0 property.
+     * Obtém o valor da propriedade arg0.
      * 
      * @return
      *     possible object is
@@ -49,7 +49,7 @@ public class SendEmail {
     }
 
     /**
-     * Sets the value of the arg0 property.
+     * Define o valor da propriedade arg0.
      * 
      * @param value
      *     allowed object is
@@ -61,7 +61,7 @@ public class SendEmail {
     }
 
     /**
-     * Gets the value of the arg1 property.
+     * Obtém o valor da propriedade arg1.
      * 
      * @return
      *     possible object is
@@ -73,7 +73,7 @@ public class SendEmail {
     }
 
     /**
-     * Sets the value of the arg1 property.
+     * Define o valor da propriedade arg1.
      * 
      * @param value
      *     allowed object is

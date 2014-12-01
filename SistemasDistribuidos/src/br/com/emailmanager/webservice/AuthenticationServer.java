@@ -18,18 +18,19 @@ public class AuthenticationServer {
 
 	private User user;
 
+	@WebMethod
 	public void saveNewUser(String userEmail, String password) {
 		user = new User();
 		user.setUser(userEmail);
 		user.setPassword(password);
 
-		ConnectionDBSQL connection = new ConnectionDBSQL();
+		/*ConnectionDBSQL connection = new ConnectionDBSQL();
 		try {
 			connection.saveNewUser(user);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		connection.closeConnection();
+		connection.closeConnection();*/
 	}
 
 	@WebMethod
@@ -38,10 +39,11 @@ public class AuthenticationServer {
 		user.setUser(userEmail);
 		user.setPassword(password);
 
-		ConnectionDBSQL connection = new ConnectionDBSQL();
+		/*ConnectionDBSQL connection = new ConnectionDBSQL();
 		Boolean existsUser = connection.existsAnyUser(user);
 		connection.closeConnection();
-		return existsUser;
+		return existsUser;*/
+		return true;
 	}
 
 	@WebMethod
@@ -50,7 +52,7 @@ public class AuthenticationServer {
 			EmailBoxServer.Email email = new EmailBoxServer.Email(0, message,
 					to, user.getUser());
 
-			Server obj = (Server) Naming.lookup("//localhost/EmailServer");
+			Server obj = (Server) Naming.lookup("//localhost:2121/EmailServer");
 
 			obj.sendEmail(email);
 

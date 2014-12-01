@@ -72,4 +72,16 @@ public interface AuthenticationServer {
         @WebParam(name = "arg1", targetNamespace = "")
         String arg1);
 
+    /**
+     * 
+     * @return
+     *     returns br.com.emailmanager.webservice.cliente.User
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "getAuthenticateUser", targetNamespace = "http://webservice.emailmanager.com.br/", className = "br.com.emailmanager.webservice.cliente.GetAuthenticateUser")
+    @ResponseWrapper(localName = "getAuthenticateUserResponse", targetNamespace = "http://webservice.emailmanager.com.br/", className = "br.com.emailmanager.webservice.cliente.GetAuthenticateUserResponse")
+    @Action(input = "http://webservice.emailmanager.com.br/AuthenticationServer/getAuthenticateUserRequest", output = "http://webservice.emailmanager.com.br/AuthenticationServer/getAuthenticateUserResponse")
+    public User getAuthenticateUser();
+
 }

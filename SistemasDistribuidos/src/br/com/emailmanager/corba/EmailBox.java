@@ -15,6 +15,9 @@ public class EmailBox {
 	public static void main(String[] args) {
 		try {
 
+			args = new String[2];
+			args[0] = "-ORBInitialHost";
+			args[1] = "localhost";	
 			ORB orb = ORB.init(args, null);
 
 			POA rootpoa = POAHelper.narrow(orb

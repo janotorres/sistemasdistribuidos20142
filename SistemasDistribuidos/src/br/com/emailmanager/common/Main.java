@@ -2,6 +2,14 @@ package br.com.emailmanager.common;
 
 import java.util.Scanner;
 
+import javax.jws.WebMethod;
+
+import org.omg.CORBA.ORB;
+import org.omg.CosNaming.NamingContextExt;
+import org.omg.CosNaming.NamingContextExtHelper;
+
+import EmailBoxServer.Email_Box_Server;
+import EmailBoxServer.Email_Box_ServerHelper;
 import br.com.emailmanager.webservice.cliente.AuthenticationServerService;
 
 public class Main {
@@ -12,7 +20,7 @@ public class Main {
 		System.out.println("Escolha uma opção:");
 		System.out.println("1 - Criar usuário");
 		System.out.println("2 - Autenticar usuário");
-		
+
 		int option = scanner.nextInt();
 
 		br.com.emailmanager.webservice.cliente.AuthenticationServer port = new AuthenticationServerService()
@@ -25,8 +33,7 @@ public class Main {
 				user.setUser(scanner.next());
 				System.out.println("Senha:");
 				user.setPassword(scanner.next());
-				port.saveNewUser(user.getUser(),
-						user.getPassword());
+				port.saveNewUser(user.getUser(), user.getPassword());
 			} else if (option == 2) {
 				System.out.println("Usuário/e-mail:");
 				user.setUser(scanner.next());
@@ -42,13 +49,14 @@ public class Main {
 			} else {
 				System.exit(0);
 			}
-			
+
 			System.out.println("Escolha uma opção:");
 			System.out.println("1 - Enviar e-mail");
 			System.out.println("2 - Consultar e-mails");
-			
+			System.out.println("3 - Deletar e-mail");
+
 			option = scanner.nextInt();
-			
+
 			if (option == 1) {
 				System.out.println("Destinatário:");
 				String to = scanner.next();
@@ -56,12 +64,35 @@ public class Main {
 				String message = scanner.next();
 
 				port.sendEmail(to, message);
+			} else {
+				try {		
+					args = new String[2];
+					args[0] = "-ORBInitialHost";
+					args[1] = "localhost";				
+
+					ORB orb = ORB.init(args, null);
+					org.omg.CORBA.Object objRef = orb
+							.resolve_initial_references("NameService");
+					NamingContextExt ncRef = NamingContextExtHelper
+							.narrow(objRef);
+					String name = "Email_Box_Server";
+					Email_Box_Server server = Email_Box_ServerHelper
+							.narrow(ncRef.resolve_str(name));
+					if (option == 2) {
+						// server.getEmails(port.getAuthenticateUser().id,
+						// Date.);
+
+					}
+					if (option == 3) {
+						System.out.println("E-mail id:");
+						server.deleteEmail(scanner.nextInt());
+					}
+				} catch (Exception e) {
+					System.out.println("ERROR : " + e);
+					e.printStackTrace(System.out);
+				}
 			}
-			else
-			{
-				
-			}
-		
+
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();

@@ -24,6 +24,8 @@ import javax.xml.namespace.QName;
 @XmlRegistry
 public class ObjectFactory {
 
+    private final static QName _GetAuthenticateUserResponse_QNAME = new QName("http://webservice.emailmanager.com.br/", "getAuthenticateUserResponse");
+    private final static QName _GetAuthenticateUser_QNAME = new QName("http://webservice.emailmanager.com.br/", "getAuthenticateUser");
     private final static QName _SaveNewUser_QNAME = new QName("http://webservice.emailmanager.com.br/", "saveNewUser");
     private final static QName _AuthenticateResponse_QNAME = new QName("http://webservice.emailmanager.com.br/", "authenticateResponse");
     private final static QName _SaveNewUserResponse_QNAME = new QName("http://webservice.emailmanager.com.br/", "saveNewUserResponse");
@@ -84,6 +86,48 @@ public class ObjectFactory {
      */
     public SaveNewUser createSaveNewUser() {
         return new SaveNewUser();
+    }
+
+    /**
+     * Create an instance of {@link GetAuthenticateUser }
+     * 
+     */
+    public GetAuthenticateUser createGetAuthenticateUser() {
+        return new GetAuthenticateUser();
+    }
+
+    /**
+     * Create an instance of {@link GetAuthenticateUserResponse }
+     * 
+     */
+    public GetAuthenticateUserResponse createGetAuthenticateUserResponse() {
+        return new GetAuthenticateUserResponse();
+    }
+
+    /**
+     * Create an instance of {@link User }
+     * 
+     */
+    public User createUser() {
+        return new User();
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetAuthenticateUserResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://webservice.emailmanager.com.br/", name = "getAuthenticateUserResponse")
+    public JAXBElement<GetAuthenticateUserResponse> createGetAuthenticateUserResponse(GetAuthenticateUserResponse value) {
+        return new JAXBElement<GetAuthenticateUserResponse>(_GetAuthenticateUserResponse_QNAME, GetAuthenticateUserResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetAuthenticateUser }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://webservice.emailmanager.com.br/", name = "getAuthenticateUser")
+    public JAXBElement<GetAuthenticateUser> createGetAuthenticateUser(GetAuthenticateUser value) {
+        return new JAXBElement<GetAuthenticateUser>(_GetAuthenticateUser_QNAME, GetAuthenticateUser.class, null, value);
     }
 
     /**

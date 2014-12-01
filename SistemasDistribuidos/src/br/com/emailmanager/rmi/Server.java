@@ -6,7 +6,7 @@ import java.rmi.RemoteException;
 import EmailBoxServer.Email;
 
 public interface Server extends Remote {
-	public Boolean sendEmail(Email email) throws RemoteException;
+	public Boolean sendEmail(Email email, int userId) throws RemoteException;
 
 }
 

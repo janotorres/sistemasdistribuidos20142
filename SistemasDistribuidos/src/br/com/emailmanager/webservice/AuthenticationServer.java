@@ -26,23 +26,27 @@ public class AuthenticationServer {
 
 		/*ConnectionDBSQL connection = new ConnectionDBSQL();
 		try {
-			connection.saveNewUser(user);
+			int id = connection.saveNewUser(user);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		connection.closeConnection();*/
+		connection.closeConnection();
+		user.setId(id);*/
+		
+		System.out.println("Usuário criado com sucesso");
 	}
 
 	@WebMethod
 	public Boolean authenticate(String userEmail, String password) {
 		user = new User();
 		user.setUser(userEmail);
-		user.setPassword(password);
+		user.setPassword(password);		
 
 		/*ConnectionDBSQL connection = new ConnectionDBSQL();
-		Boolean existsUser = connection.existsAnyUser(user);
+		int idUser = connection.existsAnyUser(user);
 		connection.closeConnection();
-		return existsUser;*/
+		user.setId(idUser);
+		return idUser != 0;*/
 		return true;
 	}
 
@@ -54,7 +58,7 @@ public class AuthenticationServer {
 
 			Server obj = (Server) Naming.lookup("//localhost:2121/EmailServer");
 
-			obj.sendEmail(email);
+			obj.sendEmail(email, user.getId());
 
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
@@ -67,4 +71,10 @@ public class AuthenticationServer {
 			e.printStackTrace();
 		}
 	}
+	
+	@WebMethod
+	public User getAuthenticateUser()
+	{
+		return user;
+	}	
 }

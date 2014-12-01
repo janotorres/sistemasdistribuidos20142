@@ -43,15 +43,18 @@ public class ConnectionDBSQL {
 		}
 	}
 
-	public Boolean existsAnyUser(User user) {
-		String query = "select Count(*) from EmailUser where userName='"
+	public int existsAnyUser(User user) {
+		String query = "select id from EmailUser where userName='"
 				+ user.getUser() + "' and userPassword='" + user.getPassword()
-				+ "' as total";
+				+ "' as id";
 		try {
 			ResultSet rs = stmt.executeQuery(query);
-			return rs.getInt("total") > 0;
+			if (rs.next()) {
+				return rs.getInt("id");
+			}
+			return 0;
 		} catch (Exception e) {
-			return false;
+			return 0;
 		}
 	}
 
@@ -101,11 +104,22 @@ public class ConnectionDBSQL {
 		stmt.executeQuery(query);
 	}
 
-	public void saveNewUser(User user) throws SQLException {
+	public int saveNewUser(User user) throws SQLException {
 		String query = "insert into EmailUser values (";
 		query += user.getUser() + ",";
 		query += user.getPassword() + ")";
 
 		stmt.executeQuery(query);
+		
+		query = "select max(id) from EmailUser as id";
+		try {
+			ResultSet rs = stmt.executeQuery(query);
+			if (rs.next()) {
+				return rs.getInt("id");
+			}
+			return 0;
+		} catch (Exception e) {
+			return 0;
+		}
 	}
 }

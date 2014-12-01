@@ -10,39 +10,73 @@ import javax.mail.*;
 import javax.mail.internet.*;
 import javax.activation.*;
 
-import br.com.emailmanager.common.SmtpAuthenticator;
+import org.omg.CORBA.ORB;
+import org.omg.CosNaming.NamingContextExt;
+import org.omg.CosNaming.NamingContextExtHelper;
+
+
+
 import EmailBoxServer.Email;
+import EmailBoxServer.Email_Box_Server;
+import EmailBoxServer.Email_Box_ServerHelper;
 
 public class EmailServer extends UnicastRemoteObject implements Server {
+
+	final String username = "manitur.heloisa@gmail.com";
+	final String password = "senha";
 
 	protected EmailServer() throws RemoteException {
 		super();
 	}
 
 	@Override
-	public Boolean sendEmail(Email email) throws RemoteException {
+	public Boolean sendEmail(Email email, int userId) throws RemoteException {
 		try {
-			Properties properties = System.getProperties();
-			properties.put("mail.smtp.starttls.enable", "true");
-			properties.put("mail.smtp.host", "smtp.gmail.com");
-			properties.put("mail.smtp.user", "manitur.heloisa@gmail.com"); // User
-																			// name
-			properties.put("mail.smtp.password", "senha"); // password
-			properties.put("mail.smtp.port", "465");
-			properties.put("mail.smtp.auth", "true");	
-			properties.put("mail.smtp.starttls.enable", "true");
-	
-			
-			SmtpAuthenticator authentication = new SmtpAuthenticator();		
-			Session session = Session.getDefaultInstance(properties, authentication);
-			MimeMessage message = new MimeMessage(session);
-			message.setFrom(new InternetAddress(email.From));
-			message.addRecipient(Message.RecipientType.TO, new InternetAddress(
-					email.To));
-			message.setSubject("E-mail enviando via RMI");
-			message.setText(email.Message);
-			Transport.send(message);
-			System.out.println("E-mail enviado com sucesso");
+
+			Properties props = new Properties();
+			props.put("mail.smtp.host", "smtp.gmail.com");
+			props.put("mail.smtp.socketFactory.port", "465");
+			props.put("mail.smtp.socketFactory.class",
+					"javax.net.ssl.SSLSocketFactory");
+			props.put("mail.smtp.auth", "true");
+			props.put("mail.smtp.port", "465");
+
+			Session session = Session.getInstance(props,
+					new javax.mail.Authenticator() {
+						protected PasswordAuthentication getPasswordAuthentication() {
+							return new PasswordAuthentication(username,
+									password);
+						}
+					});
+
+			try {
+
+				Message message = new MimeMessage(session);
+				message.setFrom(new InternetAddress(email.From));
+				message.setRecipients(Message.RecipientType.TO,
+						InternetAddress.parse(email.To));
+				message.setSubject("Testing Subject RMI");
+				message.setText(email.Message);
+
+				Transport.send(message);
+
+				System.out.println("E-mail enviado com sucesso");
+
+				String args[] = new String[2];
+				args[0] = "-ORBInitialHost";
+				args[1] = "localhost";				
+				ORB orb = ORB.init(args, null);
+				org.omg.CORBA.Object objRef = orb
+						.resolve_initial_references("NameService");
+				NamingContextExt ncRef = NamingContextExtHelper.narrow(objRef);
+				String name = "Email_Box_Server";
+				Email_Box_Server server = Email_Box_ServerHelper.narrow(ncRef
+						.resolve_str(name));
+				server.saveEmail(userId, email.To, email.Message);
+
+			} catch (MessagingException e) {
+				throw new RuntimeException(e);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

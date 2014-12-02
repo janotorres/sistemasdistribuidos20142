@@ -13,7 +13,7 @@ id int primary key AUTO_INCREMENT not null,
 sender int,
 dt datetime,
 toEmail char(150),
-messageEmail char(max)
+messageEmail char(255)
 )
 
 

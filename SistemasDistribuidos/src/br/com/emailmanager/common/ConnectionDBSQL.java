@@ -53,7 +53,7 @@ public class ConnectionDBSQL {
 	public int existsAnyUser(User user) {
 		String query = "select id from EmailUser where userName='"
 				+ user.getUser() + "' and userPassword='" + user.getPassword()
-				+ "' as id";
+				+ "';";
 		try {
 			ResultSet rs = stmt.executeQuery(query);
 			if (rs.next()) {
@@ -61,6 +61,7 @@ public class ConnectionDBSQL {
 			}
 			return 0;
 		} catch (Exception e) {
+			e.printStackTrace();
 			return 0;
 		}
 	}

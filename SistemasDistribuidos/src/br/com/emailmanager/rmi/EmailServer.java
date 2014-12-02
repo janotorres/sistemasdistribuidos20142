@@ -78,6 +78,7 @@ public class EmailServer extends UnicastRemoteObject implements Server {
 				server.saveEmail(userId, email.To, email.Message);
 
 			} catch (MessagingException e) {
+				e.printStackTrace();
 				throw new RuntimeException(e);
 			}
 		} catch (Exception e) {

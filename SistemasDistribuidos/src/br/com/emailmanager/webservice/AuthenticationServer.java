@@ -51,7 +51,7 @@ public class AuthenticationServer {
 			e.printStackTrace();
 		}
 		try {
-			user.setId(obj.saveNewUser(user));
+			user.setId(obj.authenticate(user));
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

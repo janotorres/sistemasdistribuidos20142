@@ -15,11 +15,11 @@ public class EmailBox {
 	public static void main(String[] args) {
 		try {
 
-			args = new String[4];
+			args = new String[2];
 			args[0] = "-ORBInitialHost";
 			args[1] = "localhost";	
-			args[2] = "-ORBInitialPort";
-			args[3] = "2222";
+		/*	args[2] = "-ORBInitialPort";
+			args[3] = "2222";*/
 			ORB orb = ORB.init(args, null);
 
 			POA rootpoa = POAHelper.narrow(orb
@@ -38,12 +38,10 @@ public class EmailBox {
 			NameComponent path[] = ncRef.to_name(name);
 			ncRef.rebind(path, href);
 
-			System.out.println("Servidor aguardando requisicoes ....");
 
 			orb.run();
 		} catch (Exception e) {
 			System.err.println("ERRO: " + e);
-			e.printStackTrace(System.out);
 		}
 		System.out.println("Encerrando o Servidor.");
 

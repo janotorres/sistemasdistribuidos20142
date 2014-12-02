@@ -29,13 +29,15 @@ public class EmailBoxPOA extends Email_Box_ServerPOA {
 	@Override
 	public EmailBoxServer.Email[] getEmails(int userId, String date) {
 		ConnectionDBSQL connection = new ConnectionDBSQL();
-		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-		Date result = null;
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		Date result = null;	
+		
 		try {
 			result = df.parse(date);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
+		System.out.println("Consultando e-mails...");
 		return connection.getEmails(userId, result);
 	
 	}

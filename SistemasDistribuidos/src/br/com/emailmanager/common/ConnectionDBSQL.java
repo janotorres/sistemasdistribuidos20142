@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import EmailBoxServer.Email;
@@ -16,8 +17,8 @@ public class ConnectionDBSQL {
 
 	public ConnectionDBSQL() {
 		try {
-			String driverName = "com.mysql.jdbc.Driver"; 
-			Class.forName(driverName); 
+			String driverName = "com.mysql.jdbc.Driver";
+			Class.forName(driverName);
 		} catch (java.lang.ClassNotFoundException e) {
 			System.err.print("ClassNotFoundException: ");
 			System.err.println(e.getMessage());
@@ -25,14 +26,15 @@ public class ConnectionDBSQL {
 
 		try {
 
-			//Configurando a nossa conexão com um banco de dados
-			String serverName = "localhost"; 
-			//caminho do servidor do BD 
-			String mydatabase = "emailmanager"; 
-			//nome do seu banco de dados 
-			String url = "jdbc:mysql://" + serverName + "/" + mydatabase; String username = "root"; 
-			//nome de um usuário de seu BD '
-			String password = "123456"; //sua senha de acesso 
+			// Configurando a nossa conexão com um banco de dados
+			String serverName = "localhost";
+			// caminho do servidor do BD
+			String mydatabase = "emailmanager";
+			// nome do seu banco de dados
+			String url = "jdbc:mysql://" + serverName + "/" + mydatabase;
+			String username = "root";
+			// nome de um usuário de seu BD '
+			String password = "123456"; // sua senha de acesso
 			connection = DriverManager.getConnection(url, username, password);
 			stmt = connection.createStatement();
 
@@ -69,13 +71,18 @@ public class ConnectionDBSQL {
 	public Email[] getEmails(int userId, Date date) {
 		Email[] arrayEmails;
 
-		String query = "select * from EmailSent where sender='" + userId
-				+ "' and dt='" + date + "'";
+		java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat(
+				"yyyy-MM-dd 00:00:00");
+		String currentTime = sdf.format(date);
+
+		String query = "select * from EmailSent where sender=" + userId
+				+ " and dt='" + currentTime + "'";
 		try {
 			ResultSet rs = stmt.executeQuery(query);
 
 			int aux = 0;
 			int rowcount = 0;
+
 			if (rs.last()) {
 				rowcount = rs.getRow();
 				rs.beforeFirst();
@@ -83,8 +90,9 @@ public class ConnectionDBSQL {
 			arrayEmails = new Email[rowcount];
 
 			while (rs.next() && aux != rowcount) {
-				Email email = new Email(rs.getInt("id"), rs.getString("messageEmail"),
-						rs.getString("toEmail"), null);
+				Email email = new Email(rs.getInt("id"),
+						rs.getString("messageEmail"), rs.getString("toEmail"),
+						" ");
 
 				arrayEmails[aux] = email;
 				aux++;
@@ -97,18 +105,24 @@ public class ConnectionDBSQL {
 	}
 
 	public void saveEmails(Email email, int userId) throws SQLException {
-		String query = "insert into EmailSent values (";
-		query += userId + ",";
-		query += new Date() + ",";
-		query += email.To + ",";
-		query += email.Message + ")";
+
+		java.util.Date dt = new java.util.Date();
+		java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat(
+				"yyyy-MM-dd");
+		String currentTime = sdf.format(dt);
+
+		String query = "insert into EmailSent(sender, dt, toEmail, messageEmail) values (";
+		query += userId + ",'";
+		query += currentTime + "','";
+		query += email.To + "','";
+		query += email.Message + "')";
 
 		stmt.executeUpdate(query);
 
 	}
-	
+
 	public void deleteEmail(int emailId) throws SQLException {
-		String query = "delete * from EmailSent where id =" + emailId;
+		String query = "delete from EmailSent where id =" + emailId;
 		stmt.executeUpdate(query);
 	}
 
@@ -118,7 +132,7 @@ public class ConnectionDBSQL {
 		query += "'" + user.getPassword() + "'" + ")";
 
 		stmt.executeUpdate(query);
-		
+
 		query = "select max(id) from EmailUser as id";
 		try {
 			ResultSet rs = stmt.executeQuery(query);

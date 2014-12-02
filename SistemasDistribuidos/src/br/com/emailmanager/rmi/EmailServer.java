@@ -24,7 +24,7 @@ import EmailBoxServer.Email_Box_ServerHelper;
 public class EmailServer extends UnicastRemoteObject implements Server {
 
 	final String username = "manitur.heloisa@gmail.com";
-	final String password = "senha";
+	final String password = "helo1993*";
 
 	protected EmailServer() throws RemoteException {
 		super();
@@ -63,11 +63,11 @@ public class EmailServer extends UnicastRemoteObject implements Server {
 
 				System.out.println("E-mail enviado com sucesso");
 
-				String args[] = new String[4];
+				String args[] = new String[2];
 				args[0] = "-ORBInitialHost";
 				args[1] = "localhost";
-				args[2] = "-ORBInitialPort";
-				args[3] = "2222";
+			/*	args[2] = "-ORBInitialPort";
+				args[3] = "2222";*/
 				ORB orb = ORB.init(args, null);
 				org.omg.CORBA.Object objRef = orb
 						.resolve_initial_references("NameService");

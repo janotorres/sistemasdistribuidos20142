@@ -1,5 +1,6 @@
 package br.com.emailmanager.common;
 
+import java.util.Date;
 import java.util.Scanner;
 
 import javax.jws.WebMethod;
@@ -8,6 +9,7 @@ import org.omg.CORBA.ORB;
 import org.omg.CosNaming.NamingContextExt;
 import org.omg.CosNaming.NamingContextExtHelper;
 
+import EmailBoxServer.Email;
 import EmailBoxServer.Email_Box_Server;
 import EmailBoxServer.Email_Box_ServerHelper;
 import br.com.emailmanager.webservice.cliente.AuthenticationServerService;
@@ -65,12 +67,13 @@ public class Main {
 
 				port.sendEmail(to, message);
 			} else {
-				try {		
-					args = new String[4];
+				try {
+					args = new String[2];
 					args[0] = "-ORBInitialHost";
-					args[1] = "localhost";				
-					args[2] = "-ORBInitialPort";
-					args[3] = "2222";
+					args[1] = "localhost";
+					/*
+					 * args[2] = "-ORBInitialPort"; args[3] = "2222";
+					 */
 
 					ORB orb = ORB.init(args, null);
 					org.omg.CORBA.Object objRef = orb
@@ -81,8 +84,21 @@ public class Main {
 					Email_Box_Server server = Email_Box_ServerHelper
 							.narrow(ncRef.resolve_str(name));
 					if (option == 2) {
-						// server.getEmails(port.getAuthenticateUser().id,
-						// Date.);
+						java.util.Date dt = new java.util.Date();
+						java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat(
+								"yyyy-MM-dd 00:00:00");
+						String currentTime = sdf.format(dt);
+						Email[] emails = server.getEmails(port
+								.getAuthenticateUser().getId(), currentTime);
+
+						if (emails.length > 0) {
+							for (int i = 0; i < emails.length; i++) {
+								System.out.println(emails[i].emailId + " - " + emails[i].To + " - "
+										+ emails[i].Message);
+							}
+						} else {
+							System.out.println("Nenhum e-mail encontrado");
+						}
 
 					}
 					if (option == 3) {

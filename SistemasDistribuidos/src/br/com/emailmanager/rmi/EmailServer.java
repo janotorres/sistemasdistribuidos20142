@@ -24,7 +24,7 @@ import EmailBoxServer.Email_Box_ServerHelper;
 public class EmailServer extends UnicastRemoteObject implements Server {
 
 	final String username = "manitur.heloisa@gmail.com";
-	final String password = "helo1993*";
+	final String password = "";
 
 	protected EmailServer() throws RemoteException {
 		super();
@@ -97,7 +97,7 @@ public class EmailServer extends UnicastRemoteObject implements Server {
 			e.printStackTrace();
 		}
 		connection.closeConnection();
-		System.out.println("Usu·rio criado com sucesso");
+		System.out.println("Usu√°rio criado com sucesso");
 		return id;
 	}
 
